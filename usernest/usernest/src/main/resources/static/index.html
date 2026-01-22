@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserNest | User Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>UserNest</h1>
+    <p class="subtitle">User Management System</p>
+
+    <!-- Add User Form -->
+    <div class="card">
+        <h2>Add User</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="number" id="age" placeholder="Age">
+        <input type="text" id="role" placeholder="Role">
+        <button onclick="addUser()">Add User</button>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card">
+        <h2>Users List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
