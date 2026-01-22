@@ -1,14 +1,33 @@
-# Use Java 17 (perfect for Spring Boot)
-FROM eclipse-temurin:17-jdk-alpine
+# ===============================
+# STAGE 1: Build the application
+# ===============================
+FROM eclipse-temurin:17-jdk-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy jar file
-COPY target/usernest-0.0.1-SNAPSHOT.jar app.jar
+# Copy pom.xml and download dependencies
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
 
-# Expose port (Render will map it)
+# Copy source code
+COPY src src
+
+# Build jar
+RUN ./mvnw clean package -DskipTests
+
+# ===============================
+# STAGE 2: Run the application
+# ===============================
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+# Copy jar from build stage
+COPY --from=build /app/target/*jar app.jar
+
 EXPOSE 8080
 
-# Run Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
