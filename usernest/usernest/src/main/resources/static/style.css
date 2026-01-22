@@ -55,3 +55,13 @@ th, td {
 .delete {
     background: red;
 }
+
+.checkbox {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.edit {
+    background: orange;
+    margin-right: 5px;
+}
